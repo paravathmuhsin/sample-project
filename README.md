@@ -1,2 +1,2 @@
-# sample-project
+# sample-test-project
 Test 3
