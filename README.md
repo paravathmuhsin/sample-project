@@ -1,2 +1,2 @@
-# sample-project
+# sample-react-project
 Test 3
