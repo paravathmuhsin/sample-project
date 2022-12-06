@@ -8,22 +8,29 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Copyright from "../../Components/CopyRight";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogin } from "../../Store/Actions/login.actions";
 
 const theme = createTheme();
 
 export default function Login() {
   const nav = useNavigate();
-  const store = useSelector((state) => state.login);
-  console.log(store);
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state) => state.login);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (email === "test@gmail.com" && password === "12345") {
+      const user = { name: "Neetha", country: "India" };
+      const token = "f87y48fyn89wny9y0n8uew48tu89";
+      localStorage.setItem("isLogin", true);
+      localStorage.setItem("loggedUser", JSON.stringify(user));
+      localStorage.setItem("token", token);
+      dispatch(setLogin({ user, token }));
       nav("/");
     } else {
       alert("Wrong email or password");
@@ -38,7 +45,9 @@ export default function Login() {
     }
   };
 
-  return (
+  return isLogin ? (
+    <Navigate to="/" />
+  ) : (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />

@@ -21,10 +21,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Copyright from "../CopyRight";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Logout, Settings } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogout } from "../../Store/Actions/login.actions";
 
 const drawerWidth = 240;
 
@@ -75,6 +77,8 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 export default function Layout() {
+  const dispatch = useDispatch();
+  const { isLogin, loggedUser } = useSelector((state) => state.login);
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openMenu = Boolean(anchorEl);
@@ -91,9 +95,13 @@ export default function Layout() {
   };
 
   const logout = () => {
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("loggedUser");
+    localStorage.removeItem("token");
+    dispatch(setLogout());
     nav("/login");
   };
-  return (
+  return isLogin ? (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
@@ -133,7 +141,9 @@ export default function Layout() {
                 aria-haspopup="true"
                 aria-expanded={openMenu ? "true" : undefined}
               >
-                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                <Avatar sx={{ width: 32, height: 32 }}>
+                  {loggedUser.name[0]}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -235,5 +245,7 @@ export default function Layout() {
         </Box>
       </Box>
     </ThemeProvider>
+  ) : (
+    <Navigate to="/login" />
   );
 }
