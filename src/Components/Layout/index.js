@@ -17,13 +17,14 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import Copyright from "../CopyRight";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 import { Logout, Settings } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../Store/Actions/login.actions";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import { useAppContext } from "../Context";
 
 const drawerWidth = 240;
 
@@ -75,6 +76,7 @@ const mdTheme = createTheme();
 
 export default function Layout() {
   const dispatch = useDispatch();
+  const { appTitle } = useAppContext();
   const { isLogin, loggedUser } = useSelector((state) => state.login);
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -127,7 +129,7 @@ export default function Layout() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {appTitle}
             </Typography>
             <Tooltip title="Account settings">
               <IconButton
@@ -208,12 +210,14 @@ export default function Layout() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ListItemButton>
-              <ListItemIcon>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItemButton>
+            <Link to="/">
+              <ListItemButton>
+                <ListItemIcon>
+                  <PostAddIcon />
+                </ListItemIcon>
+                <ListItemText primary="Post" />
+              </ListItemButton>
+            </Link>
           </List>
         </Drawer>
         <Box

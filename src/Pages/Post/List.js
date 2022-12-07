@@ -1,16 +1,17 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../../Components/Context";
+import { getPosts } from "../../Services/post.service";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
+  const { setAppTitle } = useAppContext();
+
   useState(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => res.data)
-      .then((res) => {
-        setPosts(res);
-      });
+    setAppTitle("Post");
+    getPosts().then((res) => {
+      setPosts(res);
+    });
   }, []);
   return (
     <div>
