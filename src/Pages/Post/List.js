@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../../Components/Context";
 import { getPosts } from "../../Services/post.service";
@@ -7,12 +7,12 @@ const PostList = () => {
   const [posts, setPosts] = useState([]);
   const { setAppTitle } = useAppContext();
 
-  useState(() => {
+  useEffect(() => {
     setAppTitle("Post");
     getPosts().then((res) => {
       setPosts(res);
     });
-  }, []);
+  }, [setAppTitle]);
   return (
     <div>
       <h3>Posts</h3>
