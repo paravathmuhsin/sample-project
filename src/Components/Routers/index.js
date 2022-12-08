@@ -6,8 +6,10 @@ import PageLoading from "../PageLoading";
 
 const Layout = React.lazy(() => import("../Layout"));
 const Login = React.lazy(() => import("../../Pages/Login"));
-const PostList = React.lazy(() => import("../../Pages/Post/List"));
-const PostDetail = React.lazy(() => import("../../Pages/Post/Detail"));
+// const PostList = React.lazy(() => import("../../Pages/Post/List"));
+// const PostDetail = React.lazy(() => import("../../Pages/Post/Detail"));
+const ToDoList = React.lazy(() => import("../../Pages/ToDo/List"));
+const ToDoDetail = React.lazy(() => import("../../Pages/ToDo/Detail"));
 
 const routes = createBrowserRouter([
   {
@@ -15,13 +17,22 @@ const routes = createBrowserRouter([
     element: <Layout />,
     errorElement: <NotFound />,
     children: [
+      // {
+      //   index: true,
+      //   element: <PostList />,
+      // },
+      // {
+      //   path: "post/:id",
+      //   element: <PostDetail />,
+      // },
+
       {
         index: true,
-        element: <PostList />,
+        element: <ToDoList />,
       },
       {
-        path: "post/:id",
-        element: <PostDetail />,
+        path: "ToDo/:id",
+        element: <ToDoDetail />,
       },
     ],
   },
