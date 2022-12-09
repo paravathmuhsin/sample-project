@@ -24,6 +24,7 @@ import { Logout, Settings } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../Store/Actions/login.actions";
 import PostAddIcon from "@mui/icons-material/PostAdd";
+import Person2 from "@mui/icons-material/Person2";
 import { useAppContext } from "../Context";
 
 const drawerWidth = 240;
@@ -216,6 +217,14 @@ export default function Layout() {
                   <PostAddIcon />
                 </ListItemIcon>
                 <ListItemText primary="Post" />
+              </ListItemButton>
+            </Link>
+            <Link to="/users">
+              <ListItemButton>
+                <ListItemIcon>
+                  <Person2 />
+                </ListItemIcon>
+                <ListItemText primary="User" />
               </ListItemButton>
             </Link>
           </List>
